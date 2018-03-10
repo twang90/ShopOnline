@@ -1,4 +1,0 @@
-include Makefile.path
-
-COMM=$(HOME)/comm/
-LFLAGS=-L$(COMM) -Wl,-rpath=$(COMM)
