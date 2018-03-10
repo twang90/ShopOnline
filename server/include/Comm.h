@@ -4,14 +4,14 @@
 class Comm
 {
  public:
-  Comm(int port_num) {}
+  Comm() {}
   void Prepare(int port_num);
-  void Receive(char& buffer[], int len);
-  void Send(const char& buffer[],int len);
- private:
-  int sockfd;
+  void Receive(int newsockfd, char buffer[], int len);
+  void Send(int newsockfd, const char buffer[],int len);
   int Connect();
   void Disconnect(int);
+ private:
+  int sockfd;
 };
 
 #endif

@@ -1,10 +1,10 @@
 CC = G++
 
-SRCS = src/server.c
+SRCS = src/Server.cc src/Comm.cc src/main.cc
 
-OBJS = $(SRCS:.c=.o)
+OBJS = $(SRCS:.cc=.o)
 
-CFLAGS += -Wall -std=c++11 -g -O2
+CFLAGS = -Wall -std=c++11 -g -O2
 LFLAGS =
 LIBS = 
 INCLUDES = -Iinclude/
@@ -16,8 +16,8 @@ all: $(TARGETS)
 $(TARGETS): $(OBJS)
 	$(CC) -o $@ $^ $(LFLAGS) $(LIBS)
 
-%.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $^
+%.o: %.cc
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $<
 
 clean:
-	rm *.o $(TARGETS) *~ || true
+	rm src/*.o $(TARGETS) src/*~ include/*~ *~ || true
