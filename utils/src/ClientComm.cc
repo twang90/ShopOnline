@@ -30,23 +30,23 @@ ClientComm::~ClientComm()
   close(sockfd);
 }
 
-void ClientComm::Connect()
+void ClientComm::Connect() const
 {
   if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) 
     error("ERROR connecting");
 }
 
-void ClientComm::Disconnect()
+void ClientComm::Disconnect() const
 {}
 
-void ClientComm::Receive(char buffer[], int len)
+void ClientComm::Receive(char buffer[], int len) const
 {
   bzero(buffer, len);
   int n = read(sockfd, buffer, len-1);
   if (n < 0) error("ERROR reading from socket");
 }
 
-void ClientComm::Send(const char buffer[], int len)
+void ClientComm::Send(const char buffer[], int len) const
 {
   int n = write(sockfd, buffer, len);
   if (n < 0) error("ERROR writing to socket");

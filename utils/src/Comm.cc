@@ -8,7 +8,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
-void Comm::error(const char *msg)
+void Comm::error(const char *msg) const
 {
   perror(msg);
   exit(1);

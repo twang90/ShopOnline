@@ -2,6 +2,7 @@
 #define _CLIENT_H
 
 #include <Comm.h>
+#include <Message.h>
 
 class Client
 {
@@ -11,7 +12,14 @@ class Client
   void Start();
  private:
   ClientComm comm;
+  void PrintNamePrompt() const;
+  string ReadString() const;
+  void SendMessage(const Message& msg) const;
+  void PrintResponse() const;
+  void PrintActionPrompt() const;
+  bool ReadRequest(Message* msg) const;
   void SendCustomerInfo();
+  void SendRequests();
 };
 
 #endif

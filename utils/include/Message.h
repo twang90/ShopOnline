@@ -9,13 +9,17 @@ class Message
  public:
   enum Action{
     NAME = 0,
-    INQUIRY,
     BUY,
+    INQUIRY,
     RETURN
   };
  Message(Action a, const char n[]):
   act(a), name(n), count("1") {};
  Message(Action a, const char n[], string c):
+  act(a), name(n), count(c) {};
+ Message(Action a, string n):
+  act(a), name(n), count("1") {};
+ Message(Action a, string n, string c):
   act(a), name(n), count(c) {};
   Message(const char[]);
 

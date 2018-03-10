@@ -7,12 +7,10 @@ class Comm
 {
  public:
   Comm() {}
-  virtual void Receive(char buffer[], int len) = 0;
-  virtual void Send(const char buffer[],int len) = 0;
-  virtual void Connect() = 0;
-  virtual void Disconnect() = 0;
+  virtual void Receive(char buffer[], int len) const = 0;
+  virtual void Send(const char buffer[],int len) const = 0;
  protected:
-  void error(const char *msg);
+  void error(const char *msg) const;
 };
 
 class ClientComm : public Comm
@@ -20,10 +18,10 @@ class ClientComm : public Comm
  public:
   ClientComm(int port_num, const char* host_name);
   ~ClientComm();
-  virtual void Receive(char buffer[], int len);
-  virtual void Send(const char buffer[],int len);
-  virtual void Connect();
-  virtual void Disconnect();
+  virtual void Receive(char buffer[], int len) const;
+  virtual void Send(const char buffer[],int len) const;
+  virtual void Connect() const;
+  virtual void Disconnect() const;
  private:
   int sockfd;
   struct sockaddr_in serv_addr;
@@ -34,10 +32,10 @@ class ServerComm : public Comm
  public:
   ServerComm(int port_num);
   ~ServerComm();
-  virtual void Receive(char buffer[], int len);
-  virtual void Send(const char buffer[],int len);
+  virtual void Receive(char buffer[], int len) const;
+  virtual void Send(const char buffer[],int len) const;
   virtual void Connect();
-  virtual void Disconnect();
+  virtual void Disconnect() const;
  private:
   int sockfd;
   int newsockfd;

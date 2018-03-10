@@ -41,21 +41,21 @@ void ServerComm::Connect()
     error("ERROR on accept");
 }
 
-void ServerComm::Disconnect()
+void ServerComm::Disconnect() const
 {
   if (newsockfd < 0)
     error("ERROR on disconnect");
   close(newsockfd);
 }
 
-void ServerComm::Receive(char buffer[], int len)
+void ServerComm::Receive(char buffer[], int len) const
 {
   bzero(buffer, len);
   int n = read(newsockfd, buffer, len-1);
   if (n < 0) error("ERROR reading from socket");
 }
 
-void ServerComm::Send(const char buffer[], int len)
+void ServerComm::Send(const char buffer[], int len) const
 {
   int n = write(newsockfd, buffer, len);
   if (n < 0) error("ERROR writing to socket");
