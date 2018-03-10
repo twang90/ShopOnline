@@ -6,10 +6,11 @@
 class Server
 {
  public:
-  Server() {};
+ Server(int port_num) : 
+  comm(port_num) {};
   void Start();
  private:
-  Comm comm;
+  ServerComm comm;
 };
 
 #endif

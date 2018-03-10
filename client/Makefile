@@ -1,13 +1,13 @@
-CC = G++
+CC = g++
 
-SRCS = src/client.c
+SRCS = src/Client.cc src/main.cc ../comm/src/Comm.cc ../comm/src/ClientComm.cc
 
-OBJS = $(SRCS:.c=.o)
+OBJS = $(SRCS:.cc=.o)
 
 CFLAGS += -Wall -std=c++11 -g -O2
 LFLAGS =
 LIBS = 
-INCLUDES = -Iinclude/
+INCLUDES = -Iinclude/ -I../comm/include/
 
 TARGETS = client
 
@@ -16,8 +16,8 @@ all: $(TARGETS)
 $(TARGETS): $(OBJS)
 	$(CC) -o $@ $^ $(LFLAGS) $(LIBS)
 
-%.o: %.c
+%.o: %.cc
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $^
 
 clean:
-	rm *.o $(TARGETS) *~ || true
+	rm *.o $(TARGETS) *~ src/*~ $(OBJS) || true

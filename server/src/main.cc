@@ -2,7 +2,7 @@
 
 int main(int argc, char *argv[])
 {
-  Server server;
+  Server server(1234);
   server.Start();
   return 0;
 }
