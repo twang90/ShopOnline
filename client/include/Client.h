@@ -11,6 +11,7 @@ class Client
   void Start();
  private:
   ClientComm comm;
+  void SendCustomerInfo();
 };
 
 #endif

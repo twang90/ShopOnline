@@ -2,6 +2,8 @@
 #define _SERVER_H
 
 #include <Comm.h>
+#include <Message.h>
+#include <Customer.h>
 
 class Server
 {
@@ -11,6 +13,9 @@ class Server
   void Start();
  private:
   ServerComm comm;
+
+  //Functions
+  void FindClientInfo();
 };
 
 #endif

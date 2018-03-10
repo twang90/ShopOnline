@@ -1,13 +1,17 @@
 CC = g++
 
-SRCS = src/Client.cc src/main.cc ../comm/src/Comm.cc ../comm/src/ClientComm.cc
+SRCS = src/Client.cc \
+	 src/main.cc \
+	../utils/src/Comm.cc \
+	../utils/src/ClientComm.cc \
+	../utils/src/Message.cc
 
 OBJS = $(SRCS:.cc=.o)
 
 CFLAGS += -Wall -std=c++11 -g -O2
 LFLAGS =
 LIBS = 
-INCLUDES = -Iinclude/ -I../comm/include/
+INCLUDES = -Iinclude/ -I../utils/include/
 
 TARGETS = client
 

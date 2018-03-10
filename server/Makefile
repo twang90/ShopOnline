@@ -1,13 +1,17 @@
 CC = g++
 
-SRCS = src/Server.cc src/main.cc ../comm/src/ServerComm.cc ../comm/src/Comm.cc
+SRCS = src/Server.cc \
+	src/main.cc \
+	../utils/src/ServerComm.cc \
+	../utils/src/Comm.cc \
+	../utils/src/Message.cc
 
 OBJS = $(SRCS:.cc=.o)
 
 CFLAGS = -Wall -std=c++11 -g -O2
 LFLAGS = 
 LIBS = 
-INCLUDES = -Iinclude/ -I../comm/include
+INCLUDES = -Iinclude/ -I../utils/include
 
 TARGETS = server
 
