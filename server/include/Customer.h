@@ -9,6 +9,9 @@ class Customer
  public:
  Customer(const string& n) : name (n) {};
   string GetName() const { return name; };
+  void BuyItems(string Item, int count){}
+  void Inquiry(string Item) const {}
+  void ReturnItems(string Item, int count) {}
  private:
   string name;
 };

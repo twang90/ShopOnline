@@ -1,5 +1,6 @@
 #include <string>
 #include <Message.h>
+#include <assert.h>
 
 void error(const char* msg)
 {
@@ -9,25 +10,50 @@ void error(const char* msg)
 
 static Message::Action MatchAction(const string& msg, size_t pos)
 {
-  if (msg.compare(1, pos-1, "NAME") == 0){
-    return Message::NAME;
+  if (msg.compare(1, pos-1, "LOGIN") == 0){
+    return Message::LOGIN;
   }
-  else{
-    error("Other actions are not supported yet!");
+  else if (msg.compare(1, pos-1, "BUY") == 0){
+    return Message::BUY;
   }
+  else if (msg.compare(1, pos-1, "INQUIRY") == 0){
+    return Message::INQUIRY;
+  }
+  else if (msg.compare(1, pos-1, "RETURN") == 0){
+    return Message::RETURN;
+  }
+  else if (msg.compare(1, pos-1, "LOGOUT") == 0){
+    return Message::LOGOUT;
+  }
+  printf("[DEBUG]%s\n", msg.c_str());
+  error("Other actions are not supported yet!");
+  return Message::NOP;
 }
 
 static string TranslateAction(Message::Action act)
 {
-  if (act == Message::NAME)
-    return "NAME";
-  else{
-    error("Other actions are not supported yet!");
-  }
+  if (act == Message::LOGIN)
+    return "LOGIN";
+  else if (act == Message::BUY)
+    return "BUY";
+  else if (act == Message::INQUIRY)
+    return "INQUIRY";
+  else if (act == Message::RETURN)
+    return "RETURN";
+  else if (act == Message::LOGOUT)
+    return "LOGOUT";
+  printf("[DEBUG]Action: %d\n", act);
+  error("Other actions are not supported yet!");
+  return "";
 }
 
 Message::Message(const char msg[])
 {
+  if (strlen(msg) == 0){
+    valid = false;
+    return;
+  }
+  valid = true;
   if (msg[0] != '['){
     printf("%s\n", msg);
     error("Message Wrong: First char is not [");
@@ -42,7 +68,7 @@ Message::Message(const char msg[])
   size_t aster = message.find('*');
   if (aster == string::npos){
     name = message.substr(act_end+1);
-    count = 1;
+    count = "1";
   }
   else{
     name = message.substr(act_end+1, aster-act_end-1);
@@ -59,6 +85,5 @@ char* Message::GetMessage() const
   if (GetCount() > 1)
     message += '*' + count;
   char* msg = strdup(message.c_str());
-  printf("%s\n", msg);
   return msg;
 }

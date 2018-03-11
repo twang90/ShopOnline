@@ -2,7 +2,11 @@
 
 int main(int argc, char *argv[])
 {
-  Client client(1234, "localhost");
+  int port_num = 1234;
+  if (argc > 1){
+    port_num = stoi(argv[1]);
+  }
+  Client client(port_num, "localhost");
   client.Start();
   return 0;
 }

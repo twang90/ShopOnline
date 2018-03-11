@@ -8,11 +8,15 @@ class Message
 {
  public:
   enum Action{
-    NAME = 0,
+    NOP = 0,
     BUY,
     INQUIRY,
-    RETURN
+    RETURN,
+    LOGIN,
+    LOGOUT
   };
+ Message(Action a):
+  act(a), name(""), count("0") {};
  Message(Action a, const char n[]):
   act(a), name(n), count("1") {};
  Message(Action a, const char n[], string c):
@@ -28,6 +32,7 @@ class Message
   string GetName() const {return name;}
   int GetCount() const {return stoi(count);}
  private:
+  bool valid;
   Action act;
   string name;
   string count;

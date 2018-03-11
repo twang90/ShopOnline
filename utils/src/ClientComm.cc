@@ -37,7 +37,9 @@ void ClientComm::Connect() const
 }
 
 void ClientComm::Disconnect() const
-{}
+{
+  close(sockfd);
+}
 
 void ClientComm::Receive(char buffer[], int len) const
 {

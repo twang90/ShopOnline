@@ -14,18 +14,20 @@ static void TrimEndline(char buffer[])
 
 void Client::Start()
 {
+  comm.Connect();
   // Step 1: Send user info to the server
   SendCustomerInfo();
   // Step 2: Wait user to send requests
   SendRequests();
+  comm.Disconnect();
 }
 
 void Client::SendCustomerInfo()
 {
   PrintNamePrompt();
   string name = ReadString();
-  Message msg(Message::NAME, name);
-  SendMessage(msg);
+  Message msg(Message::LOGIN, name);
+  SendMessage(&msg);
   PrintResponse();
 }
 
@@ -36,10 +38,11 @@ void Client::SendRequests()
     Message* msg = NULL;
     bool quit = ReadRequest(msg);
     if (quit){
+      SendMessage(msg);
       free(msg);
       break;
     }
-    SendMessage(*msg);
+    SendMessage(msg);
     free(msg);
     PrintResponse();
   }
@@ -78,7 +81,7 @@ void Client::PrintActionPrompt() const
   printf("[q] Quit Program\n");
 }
 
-bool Client::ReadRequest(Message* msg) const
+bool Client::ReadRequest(Message*& msg) const
 {
   string str = ReadString();
   Message::Action act;
@@ -107,17 +110,19 @@ bool Client::ReadRequest(Message* msg) const
     msg = new Message(act, name, count);
     return false;
   case 'q':
+    act = Message::LOGOUT;
+    msg = new Message(act);
     return true;
   default:
     assert(0);
   }
 }
 
-void Client::SendMessage(const Message& msg) const
+void Client::SendMessage(const Message* msg) const
 {
-  comm.Connect();
   char* message = NULL;
-  message = msg.GetMessage();
+  message = msg->GetMessage();
+  printf("[DEBUG]Prepare to send message: %s\n", message);
   comm.Send(message, strlen(message));
   free(message);
 }

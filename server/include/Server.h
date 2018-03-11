@@ -15,7 +15,11 @@ class Server
   ServerComm comm;
 
   //Functions
-  void FindClientInfo();
+  void ReadMessage(Message*& msg) const;
+  void SendResponse(const string& response) const;
+
+  void WaitCustomerLogin(Customer*& customer);
+  void ProcessRequest(Customer* c);
 };
 
 #endif
