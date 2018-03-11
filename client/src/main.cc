@@ -3,10 +3,14 @@
 int main(int argc, char *argv[])
 {
   int port_num = 1234;
-  if (argc > 1){
+  string host_name("localhost");
+  if (argc == 2){
     port_num = stoi(argv[1]);
   }
-  Client client(port_num, "localhost");
+  if (argc == 3){
+    host_name = argv[2];
+  }
+  Client client(port_num, host_name.c_str());
   client.Start();
   return 0;
 }
